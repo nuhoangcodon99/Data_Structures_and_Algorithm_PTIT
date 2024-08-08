@@ -1,0 +1,37 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+int a;
+vector<int>ds;
+void Sinh(int x,int y)
+{
+	for(int j = x;j>=1;j--)
+	{
+		if(y-j>=0)
+		{
+			ds.push_back(j);
+			if(y-j==0)
+			{
+				cout<<"(";
+				for(int p = 0;p<ds.size()-1;p++)
+					cout<<ds[p]<<" ";
+				cout<<ds[ds.size()-1]<<") ";
+			}
+			if(y-j>0)
+				Sinh(j,y-j);
+			ds.pop_back();
+		}
+	}
+}
+int main()
+{
+	int n;
+	cin>>n;
+	while(n--)
+	{	
+		ds.clear();
+		cin>>a;
+		Sinh(a,a);
+		cout<<endl;
+	}
+}

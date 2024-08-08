@@ -1,0 +1,50 @@
+#include<iostream>
+
+using namespace std;
+long long Mod=1e9+7;
+struct MT
+{
+	long long f[2][2];
+};
+
+MT operator *(MT a,MT b)
+{
+	MT temp;
+	for(int i = 0;i<2;i++)
+	{
+		for(int j = 0;j<2;j++)
+		{
+			temp.f[i][j]=0;
+			for(int k = 0;k<2;k++)
+				temp.f[i][j]= ( temp.f[i][j] + (a.f[i][k]*b.f[k][j])%Mod)%Mod;
+		}
+	}
+	return temp;
+}
+
+MT Xuly(MT a,long long b)
+{
+	if(b==1)
+		return a;
+	MT c = Xuly(a,b/2);
+	if(b%2==0)
+		return c*c;
+	else
+		return a*c*c;
+}
+
+int main()
+{
+	int n;
+	cin>>n;
+	while(n--)
+	{
+		MT a;
+		long long x;
+		cin>>x;
+		a.f[0][0]=a.f[0][1]=a.f[1][0]=1;
+		a.f[1][1]=0;
+		MT B = Xuly(a,x);
+		cout<<B.f[0][1]<<endl;
+	}
+}

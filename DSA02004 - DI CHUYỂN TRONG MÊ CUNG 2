@@ -1,0 +1,77 @@
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+
+vector<string>ds;
+string dd;
+int a,f[100][100]={};
+void Sinh(int i,int j)
+{
+	if(i==a-1 && j == a-1)
+	{
+		ds.push_back(dd);
+		return;
+	}
+	if(i+1<a && f[i+1][j])
+	{
+		dd+='D';
+		f[i+1][j]=0;
+		Sinh(i+1,j);
+		f[i+1][j]=1;
+		dd.pop_back();
+	}
+	if(j-1>=0 && f[i][j-1])
+	{
+		dd+='L';
+		f[i][j-1]=0;
+		Sinh(i,j-1);
+		f[i][j-1]=1;
+		dd.pop_back();
+	}
+	if(j+1<a && f[i][j+1])
+	{
+		dd+='R';
+		f[i][j+1]=0;
+		Sinh(i,j+1);
+		f[i][j+1]=1;
+		dd.pop_back();
+	}
+	if(i-1>=0 && f[i-1][j])
+	{
+		f[i-1][j]=0;
+		dd+='U';
+		Sinh(i-1,j);
+		f[i-1][j]=1;
+		dd.pop_back();
+	}
+}
+int main()
+{
+	int n;
+	cin>>n;
+	while(n--)
+	{
+		dd="";
+		cin>>a;
+		ds.clear();
+		for(int i = 0;i<a;i++)
+		{
+			for(int j = 0;j<a;j++)
+				cin>>f[i][j];
+		}
+		if(!f[0][0] || !f[a-1][a-1])
+		{
+			cout<<-1<<endl;
+			continue;
+		}
+		f[0][0]=0;
+		Sinh(0,0);
+		sort(ds.begin(),ds.end());
+		for(string i:ds)
+			cout<<i<<" ";
+		if(!ds.size())
+			cout<<-1;
+		cout<<endl;
+	}
+}

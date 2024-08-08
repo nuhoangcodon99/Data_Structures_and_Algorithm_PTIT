@@ -1,0 +1,49 @@
+#include<iostream>
+#include<queue>
+#include<map>
+#define faster() ios_base::sync_with_stdio(0); cin.tie(NULL);cout.tie(NULL);
+using namespace std;
+int a,b;
+int Dem()
+{
+	int f[a][b]={},g[a][b]={};
+	for(int i = 0;i<a;i++)
+	{
+		for(int j = 0;j<b;j++)
+			cin>>f[i][j];
+	}
+	queue<pair<int,int>>c;
+	c.push({0,0,});
+	while(c.size())
+	{
+		pair<int,int>d=c.front();
+		c.pop();
+		if(d.first+f[d.first][d.second] <a && !g[ d.first+f[d.first][d.second]][d.second] )
+		{
+			c.push({d.first+f[d.first][d.second],d.second});
+			g[ d.first+f[d.first][d.second]][d.second]=g[d.first][d.second]+1;
+			if(d.first+f[d.first][d.second]== a-1 && d.second== b-1)
+				return g[ d.first+f[d.first][d.second]][d.second];
+		}
+		if(d.second+f[d.first][d.second] < b && ! g[d.first ][d.second+f[d.first][d.second]])
+		{
+			c.push({d.first,d.second+f[d.first][d.second]});
+			g[d.first ][d.second+f[d.first][d.second]]=g[d.first][d.second]+1;
+			if(d.second+f[d.first][d.second]==b-1 && d.first==a-1)
+				return g[d.first ][d.second+f[d.first][d.second]];
+		}
+	}
+	return -1;
+}
+int main()
+{
+	faster();
+	int n;
+	cin>>n;
+	while(n--)
+	{
+		
+		cin>>a>>b;
+		cout<<Dem()<<endl;
+	}
+}

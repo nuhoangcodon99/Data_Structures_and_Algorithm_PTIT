@@ -1,0 +1,46 @@
+#include<iostream>
+using namespace std;
+
+int main()
+{
+	int n;
+	cin>>n;
+	while(n--)
+	{
+		string s;
+		cin>>s;
+		int Len=1;
+
+		for(int i = 0;i<s.length();i++)
+		{		
+		    //truong hop xau con co do dai la chan
+			int l = i,r=i;
+			while(l>=0 && r<s.length())
+			{
+				if(s[l]==s[r])
+				{
+					Len=max(Len,r-l+1);
+					l--;
+					r++;
+				}
+				else
+					break;
+			}
+			
+			//truong hop xau con co do dai la le
+			l = i,r=i+1;
+			while(l>=0 && r<s.length())
+			{
+				if(s[l]==s[r])
+				{
+					Len=max(Len,r-l+1);
+					l--;
+					r++;
+				}
+				else
+					break;
+			}
+		}
+		cout<<Len<<endl;
+	}
+}

@@ -1,0 +1,40 @@
+#include<iostream>
+#include<stack>
+using namespace std;
+
+int main()
+{
+    int n;
+    cin>>n;
+    while(n--)
+    {
+        int a;
+        cin>>a;
+        int f[a],g[a]={};
+        for(int &i:f)
+            cin>>i;
+        stack<int>ds;
+        ds.push(f[a-1]);
+        g[a-1]=-1;
+        for(int i = a-2;i>=0;i--)
+        {
+            if(ds.empty() && f[i]<ds.top())
+            {
+                ds.push(f[i]);
+            }
+            else
+            {
+                while(ds.size() && f[i]>=ds.top())
+                    ds.pop();
+                if(ds.size())
+                    g[i]=ds.top();
+                else
+                    g[i]=-1;
+                ds.push(f[i]);
+            }
+        }
+        for(int i:g)
+            cout<<i<<" ";
+        cout<<endl;
+    }
+}

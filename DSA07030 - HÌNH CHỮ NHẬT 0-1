@@ -1,0 +1,64 @@
+#include<iostream>
+#include<stack>
+using namespace std;
+
+int main()
+{
+    int n;
+    cin>>n;
+    while(n--)
+    {
+        int a,b;
+        cin>>a>>b;
+        int A[a][b],B[a][b];
+        for(int i = 0;i<a;i++)
+        {
+            for(int j = 0;j<b;j++)
+            {
+                cin>>A[i][j];
+                if(A[i][j])
+                {
+                    if(i==0)
+                        B[i][j]=1;
+                    else
+                        B[i][j]=B[i-1][j]+1;
+                }
+                else
+                    B[i][j]=0;
+            }
+        }
+        int cmax=0;
+        for(int x = 0;x<a;x++)
+        {
+            stack<int>ds;
+            int i = 0;
+            while(i<b)
+            {
+                if(!ds.size() || B[x][i]>B[x][ds.top()])
+                {
+                    ds.push(i);
+                    i++;
+                }
+                else
+                {
+                    int y = ds.top();
+                    ds.pop();
+                    if(!ds.size())
+                        cmax=max(cmax,B[x][y]*i);
+                    else
+                        cmax=max(cmax,B[x][y]*(i-ds.top()-1));
+                }
+            }
+            while(ds.size())
+            {
+                int y = ds.top();
+                    ds.pop();
+                if(!ds.size())
+                    cmax=max(cmax,B[x][y]*i);
+                else
+                    cmax=max(cmax,B[x][y]*(i-ds.top()-1));
+            }
+        }
+        cout<<cmax<<endl;
+    }
+}

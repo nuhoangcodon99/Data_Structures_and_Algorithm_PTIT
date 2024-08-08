@@ -1,0 +1,38 @@
+#include<iostream>
+#include<algorithm>
+using namespace std;
+
+int main()
+{
+	int n;
+	cin>>n;
+	while(n--)
+	{
+		long long a,b,dem=0;
+		cin>>a>>b;
+		long long f[a];
+		for(long long &i:f)
+		{
+			cin>>i;
+		}
+		sort(f,f+a);
+		for(long long i = 0;i<a;i++)
+		{
+			long long t = -1,l=i+1,r=a-1;
+			while(l<=r)
+			{
+				long long m = (l+r)/2;
+				if(f[i]+b>f[m])
+				{
+					t=m;
+					l=m+1;
+				}
+				else
+					r=m-1;
+			}
+			if(t!=-1)
+				dem+=t-i;
+		}
+		cout<<dem<<endl;
+	}
+}

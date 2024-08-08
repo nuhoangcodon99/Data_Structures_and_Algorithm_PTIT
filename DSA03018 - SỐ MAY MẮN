@@ -1,0 +1,36 @@
+#include<iostream>
+#include<queue>
+using namespace std;
+
+int main()
+{
+    int n;
+    cin>>n;
+    while(n--)
+    {
+        int a,dem7=0,dem4=0;
+        bool check=false;
+        cin>>a;
+        dem7=a/7;
+        while(dem7>=0)
+        {
+            if((a-dem7*7)%4==0)
+            {
+                dem4=(a-dem7*7)/4;
+                check=true;
+                break;
+            }
+            dem7--;
+        }
+        if(!check)
+            cout<<-1;
+        else
+        {
+            while(dem4--)
+                cout<<4;
+            while(dem7--)
+                cout<<7;
+        }
+        cout<<endl;
+    }
+}

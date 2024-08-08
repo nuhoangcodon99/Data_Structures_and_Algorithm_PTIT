@@ -1,0 +1,57 @@
+#include<iostream>
+#include<algorithm>
+#include<vector>
+using namespace std;
+int a,b,f[101]={},temp=0;
+vector<int>v;
+vector<vector<int>>vv;
+
+void Sinh(int i)
+{
+    for(int j = i;j<=a;j++)
+    {
+        temp+=f[j];
+        v.push_back(f[j]);
+        if(temp==b)
+            vv.push_back(v);
+        if(temp<=b)
+            Sinh(j);
+        v.pop_back();
+        temp-=f[j];
+    }
+}
+
+int main()
+{
+    int n;
+    cin>>n;
+    while(n--)
+    {
+        temp=0;
+        v.clear();
+        vv.clear();
+        cin>>a>>b;
+        for(int i = 1;i<=a;i++)
+            cin>>f[i];
+        sort(f+1,f+a+1);
+        Sinh(1);
+        if(!vv.size())
+            cout<<-1;
+        else
+        {
+            for(vector<int>i:vv)
+            {
+                if(i.size()==1)
+                    cout<<"["<<i[0]<<"]";
+                else
+                {
+                    cout<<"["<<i[0];
+                    for(int j = 1;j<i.size();j++)
+                        cout<<" "<<i[j];
+                    cout<<"]";
+                }
+            }
+        }
+        cout<<endl;
+    }
+}

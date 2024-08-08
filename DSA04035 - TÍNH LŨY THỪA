@@ -1,0 +1,27 @@
+#include<iostream>
+using namespace std;
+
+long long Mod = 1e9+7;
+
+long long LuyThua(long long a,long long b)
+{
+	if(b==0)
+		return 1;
+	long long temp=LuyThua(a,b/2);
+	if(b%2==0)
+		return (temp*temp)%Mod;
+	else
+		return a*(temp*temp%Mod)%Mod;
+}
+
+int main()
+{
+	while(1)
+	{
+		long long a,b;
+		cin>>a>>b;
+		if(!a && !b)
+			return 0;
+		cout<<LuyThua(a,b)<<endl;
+	}
+}

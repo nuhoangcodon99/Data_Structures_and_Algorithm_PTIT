@@ -1,0 +1,32 @@
+#include<iostream>
+#include<stack>
+using namespace std;
+
+int main()
+{
+	int n;
+	cin>>n;
+	while(n--)
+	{
+		int a;
+		cin>>a;
+		int f[a+1];
+		for(int i = 1;i<=a;i++)
+			cin>>f[i];
+		int g[a+1]={};
+		stack<int>ds;
+		for(int i = 1;i<=a;i++)
+		{
+			while(ds.size() && f[i]>=f[ds.top()])
+				ds.pop();
+			if(!ds.size())
+				g[i]=0;
+			else
+				g[i]=ds.top();
+			ds.push(i);
+		}
+		for(int i = 1;i<=a;i++)
+			cout<<i-g[i]<<" ";
+		cout<<endl;
+	}
+}

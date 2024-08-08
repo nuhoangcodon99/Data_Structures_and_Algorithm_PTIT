@@ -1,0 +1,64 @@
+#include<iostream>
+#include<climits>
+using namespace std;
+
+int a,g[100][100]={},dem=INT_MAX,chuaxet[100]={},h[100];
+string f[100]={};
+
+int Dem(string a,string b)
+{
+	int temp=0;
+	for(int i = 0;i<a.length();i++)
+	{
+		for(int j = 0;j<b.length();j++)
+		{
+			if(a[i]==b[j])
+				temp++;
+		}
+	}
+	return temp;
+}
+
+void CapNhat()
+{
+	int temp=0;
+	for(int i = 2;i<=a;i++)
+		temp+=g[h[i-1]][h[i]];
+	dem=min(dem,temp);
+}
+
+void Sinh(int i)
+{
+	for(int j = 1;j<=a;j++)
+	{
+		if(!chuaxet[j])
+		{
+			chuaxet[j]=1;
+			h[i]=j;
+			if(i==a)
+				CapNhat();
+			else
+				Sinh(i+1);
+			chuaxet[j]=0;
+		}
+	}
+}
+
+int main()
+{
+	cin>>a;
+	for(int i = 1;i<=a;i++)
+		cin>>f[i];
+		
+	//dem so ky tu lap tren cac cap xau
+	for(int i = 1;i<=a;i++)
+	{
+		for(int j = i+1;j<=a;j++)
+		{
+			g[i][j]=Dem(f[i],f[j]);
+			g[j][i]=g[i][j];
+		}
+	}
+	Sinh(1);
+	cout<<dem;
+}

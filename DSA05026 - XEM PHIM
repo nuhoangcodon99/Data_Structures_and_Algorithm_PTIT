@@ -1,0 +1,22 @@
+#include<iostream>
+using namespace std;
+
+int main()
+{
+	int a,b;
+	cin>>b>>a;
+	int f[a+2]={},g[a+1][b+1]={};
+	for(int i = 1;i<=a;i++)
+		cin>>f[i];
+	for(int i = 1;i<=a;i++)
+	{
+		for(int j = 1;j<=b;j++)
+		{
+			if(j<f[i])
+				g[i][j]=g[i-1][j];
+			else
+				g[i][j]=max(g[i-1][j], g[i-1][j-f[i]]+f[i]);
+		}
+	}
+	cout<<g[a][b];
+}

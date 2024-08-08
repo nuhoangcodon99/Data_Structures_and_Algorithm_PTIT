@@ -1,0 +1,23 @@
+#include<iostream>
+using namespace std;
+
+int main()
+{
+	int n;
+	cin>>n;
+	while(n--)
+	{
+		long long a,dem=0;
+		cin>>a;
+		long long f[101],g[101]={};
+		for(int i = 0;i<a;i++)
+			cin>>f[i];
+		g[0]=f[0];
+		for(int i = 1;i<a;i++)
+		{
+			g[i]=max(g[i-1]+f[i],f[i]);
+			dem=max(g[i],dem);
+		}
+		cout<<dem<<endl;
+	}
+}
